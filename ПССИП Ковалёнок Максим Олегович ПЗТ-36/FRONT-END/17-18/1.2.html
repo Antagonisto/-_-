@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регулярные выражения и валидация форм</title>
+</head>
+<body>
+    <form id="myForm" action="/submit" method="post" onsubmit="return validateForm(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <input type="submit" value="Отправить">
+    </form>
+
+    <script>
+        function validateForm(event) {
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var password = document.getElementById('password').value;
+            var name = document.getElementById('name').value;
+
+            // Проверка email
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.match(emailRegex)) {
+                alert('Введите корректный email');
+                return false;
+            }
+
+            // Проверка телефона
+            var phoneRegex = /^(\+7|8)?[\s-]?\(?(\d{3})\)?[\s-]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})$/;
+            if (!phone.match(phoneRegex)) {
+                alert('Введите корректный номер телефона');
+                return false;
+            }
+
+            // Проверка пароля
+            var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+            if (!password.match(passwordRegex)) {
+                alert('Пароль должен содержать цифры, буквы верхнего и нижнего регистра, и быть от 6 до 20 символов длиной');
+                return false;
+            }
+
+            // Проверка имени
+            var nameRegex = /^[A-Za-zА-Яа-яЁё]+$/;
+            if (!name.match(nameRegex)) {
+                alert('Введите корректное имя');
+                return false;
+            }
+
+            // Все проверки пройдены, можно отправить форму
+            return true;
+        }
+
+        // Примеры использования методов объекта RegExp и String
+        var text = "The quick brown fox jumps over the lazy dog";
+        var regex1 = /fox/gi;
+        var regex2 = /\b\w{5}\b/g;
+        var regex3 = /dog/g;
+
+        console.log("Метод test(): " + regex1.test(text)); // true
+        console.log("Метод exec(): " + regex2.exec(text)); // quick
+        console.log("Метод split(): " + text.split(" ")); // ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"]
+        console.log("Метод match(): " + text.match(regex2)); // ["quick", "brown"]
+        console.log("Метод search(): " + text.search(regex3)); // 40
+        console.log("Метод replace(): " + text.replace('fox', 'cat')); // The quick brown cat jumps over the lazy dog
+    </script>
+</body>
+</html>

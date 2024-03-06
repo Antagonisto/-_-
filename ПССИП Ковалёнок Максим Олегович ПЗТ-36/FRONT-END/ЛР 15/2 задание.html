@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Examples</title>
+</head>
+<body>
+
+<button onmouseover="mouseOverFunction()" onmouseout="mouseOutFunction()">Наведите мышь</button>
+
+<input type="text" id="myInput" onkeydown="myFunction()">
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <img src="img_logo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+</div>
+
+<p onpointerdown="myFunction()">Нажмите и удерживайте для запуска функции указателя.</p>
+
+<div style="width: 200px; height: 200px; border: 1px solid #000; overflow: scroll;" onscroll="myFunctionScroll()">
+  <p>Прокрутите этот блок для запуска функции прокрутки.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper eros in lacinia efficitur. Donec nec fringilla est. Suspendisse potenti.</p>
+</div>
+
+<script>
+    function mouseOverFunction() {
+        alert("Вы навели курсор мыши!");
+    }
+
+    function mouseOutFunction() {
+        alert("Вы убрали курсор мыши!");
+    }
+
+    function myFunction() {
+        alert("Вы взаимодействуете с клавиатурой!");
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+
+    function myFunctionScroll() {
+        alert("Вы прокручиваете содержимое!");
+    }
+</script>
+
+</body>
+</html>
